@@ -13,18 +13,15 @@ extern crate chrono;
 extern crate serde_derive;
 extern crate serde_json;
 
-mod db;
-mod endpoints;
-mod test_controller;
-mod user_controller;
-mod db_schema;
-mod user_model;
+mod dal;
+mod http_adaptor;
+mod controllers;
 
 use iron::prelude::Iron;
 use dotenv::dotenv;
 
-use db::Db;
-use endpoints::declare_endpoints;
+use dal::Db;
+use http_adaptor::endpoints::declare_endpoints;
 
 fn main() {
 	dotenv().ok();

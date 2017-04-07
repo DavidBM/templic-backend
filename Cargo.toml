@@ -1,5 +1,5 @@
 [package]
-name = "rust-webserver-demo"
+name = "templic-backend"
 version = "0.1.0"
 authors = ["David Bonet <webbonet@gmail.com>"]
 
@@ -19,5 +19,7 @@ serde_json = "^0.9"
 version = "*"
 
 [dependencies.mount]
-
 git = "https://github.com/iron/mount.git"
+
+[dependencies.bodyparser]
+git = "https://github.com/iron/body-parser.git"
