@@ -1,8 +1,5 @@
-use iron::status;
-use iron::prelude::*;
+import_controller_generic_requeriments!();
 
-use dal::*;
-
-pub fn ping(_: &mut Request, _: DbPooledConnection) -> IronResult<Response>{
-	Ok(Response::with((status::Ok, "pong")))
+pub fn ping(_: &mut Request, _: DbPooledConnection, _: &Logger) -> IronResult<Response>{
+	response_ok("pong")
 }

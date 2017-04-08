@@ -1,16 +1,19 @@
 macro_rules! import_controller_generic_requeriments {
 	($($includes:ident),*) => {
-		use iron::status;
 		use iron::prelude::*;
+		#[allow(unused_imports)]
 		use router::Router;
+
+		use slog::Logger;
 
 		use dal::*;
 
 		$(
 			use $includes;
 		)*
-
+		#[allow(unused_imports)]
 		use std::io::Read;
+		use controllers::utils::*;
 	}
 }
 

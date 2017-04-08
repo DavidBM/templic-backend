@@ -3,6 +3,7 @@
 Written in Rust.
 
 Rust components:
+- slog: log system
 - r2d2: database connection pool
 - diesel: ORM
 - iron: http framework
