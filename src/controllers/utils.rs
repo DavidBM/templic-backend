@@ -6,7 +6,10 @@ macro_rules! import_controller_generic_requeriments {
 
 		use slog::Logger;
 
+		#[allow(unused_imports)]
 		use dal::*;
+		#[allow(unused_imports)]
+		use dal::DieselReqExt;
 
 		$(
 			use $includes;
@@ -53,7 +56,7 @@ macro_rules! create_http_response {
 }
 
 macro_rules! get_body_as {
-	($req:expr, $structure:ty, $error_fn:ident) => {
+	($structure:ty, $req:expr, $error_fn:ident) => {
 		{
 			let body = get_body!($req, $error_fn);
 

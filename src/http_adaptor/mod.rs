@@ -1,1 +1,3 @@
-pub mod endpoints;
+pub mod adaptor;
+
+pub use self::adaptor::HttpAdaptor;

@@ -43,8 +43,9 @@ Compiled using Rust `rustc 1.16.0 (30cf806ef 2017-03-10)` stable version.
 - fill the files `up.sql` and `down.sql`
 - check with `diesel migration run`
 - check again with `diesel migration redo`
+- Execute `cargo build` for checking types in the code. (Types depend of the actual types in the database, and the compiler use that information for checking compatibility with code types)
 
-If there isn't errors, you finish! :)
+If there isn't any errors, you finish! :)
 
 ## Adding new endpoints 
 
