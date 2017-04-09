@@ -1,5 +1,6 @@
+use std::env;
 use slog::*;
-//use slog_term;
+use slog_term;
 use std;
 use slog_json::Json;
 use std::sync::Mutex;
@@ -14,14 +15,28 @@ pub struct LoggerMiddleware {
 
 impl LoggerMiddleware {
 	pub fn new () -> LoggerMiddleware{	
-		//let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
-		let json = Mutex::new(Json::default(std::io::stdout())).map(Fuse);
-		//let drain = slog_term::FullFormat::new(plain).build().fuse();
 
-		LoggerMiddleware {logger: Logger::root(
-			json,
-			o!("app" => "templic-backend")
-		)}
+		let log_output_type = env::var("LOG_OUTPUT").expect("LOG_OUTPUT must be set");
+
+		match log_output_type.as_ref() {
+		    "json" => {
+		    	let json = Mutex::new(Json::default(std::io::stdout())).map(Fuse);
+
+				LoggerMiddleware {logger: Logger::root(
+					json,
+					o!("app" => "templic-backend")
+				)}
+		    },
+		    _ => {
+				let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
+				let drain = slog_term::FullFormat::new(plain).build().fuse();
+
+				LoggerMiddleware {logger: Logger::root(
+					drain,
+					o!("app" => "templic-backend")
+				)}
+		    }
+		}
 	}
 
 	pub fn get_logger(&self) -> Logger {
