@@ -16,6 +16,7 @@ serde_derive = "^0.9"
 serde_json = "^0.9"
 slog = "~2.0.0-3.1"
 slog-term = "~2.0.0-3.0"
+slog-json = "~2.0.0-3.0"
 
 [dependencies.iron]
 version = "*"

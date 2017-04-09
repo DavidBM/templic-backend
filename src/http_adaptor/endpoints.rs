@@ -44,9 +44,9 @@ pub fn declare_endpoints(pool: DbConnectionPool, logger: Logger) -> Mount {
 	declare_multiple_endpoints!(
 		"user", pool, logger, routes, "/user/",
 		"get_user" => get, "/:id", user_controller::get_user,
-		"create_user" => post, "/:id", user_controller::create_user,
 		"delete_user" => delete, "/:id", user_controller::delete_user,
 		"update_user" => put, "/:id", user_controller::update_user,
+		"create_user" => post, "/", user_controller::create_user,
 		"get_all_user" => get, "/", user_controller::get_all_users
 	);
 

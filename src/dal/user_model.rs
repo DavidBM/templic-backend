@@ -1,4 +1,5 @@
-use chrono::NaiveDate;
+use chrono::DateTime;
+use chrono::UTC;
 use dal::*;
 use diesel;
 use diesel::prelude::*;
@@ -12,7 +13,7 @@ pub struct User {
 	name: String,
 	email: String,
 	password: String,
-	created_at: NaiveDate,
+	created_at: DateTime<UTC>,
 }
 
 impl User {
@@ -63,5 +64,5 @@ pub struct NewUser {
 	name: String,
 	email: String,
 	password: String,
-	pub created_at: Option<NaiveDate>,
+	pub created_at: Option<DateTime<UTC>>,
 }

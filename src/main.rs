@@ -9,13 +9,17 @@ extern crate r2d2;
 extern crate r2d2_diesel;
 extern crate dotenv;
 extern crate chrono;
+extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+#[macro_use]
 extern crate serde_json;
 #[macro_use]
 extern crate slog;
 extern crate slog_term;
+extern crate slog_json;
 
+#[macro_use]
 mod utils;
 mod dal;
 mod controllers;
