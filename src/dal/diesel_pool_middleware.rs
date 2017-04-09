@@ -37,11 +37,11 @@ impl BeforeMiddleware for DieselMiddleware {
 }
 
 pub trait DieselReqExt {
-	fn db_conn(&self) -> DieselConnection;
+	fn get_db_conn(&self) -> DieselConnection;
 }
 
 impl <'a, 'b>DieselReqExt for Request <'a, 'b> {
-	fn db_conn(&self) -> DieselConnection {
+	fn get_db_conn(&self) -> DieselConnection {
 		let &Value(ref pool) = self.extensions.get::<DieselMiddleware>().unwrap();
 
 		return pool.get().expect("Failed to get a db connection");

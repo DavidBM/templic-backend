@@ -4,12 +4,12 @@ macro_rules! import_controller_generic_requeriments {
 		#[allow(unused_imports)]
 		use router::Router;
 
-		use slog::Logger;
-
 		#[allow(unused_imports)]
 		use dal::*;
 		#[allow(unused_imports)]
 		use dal::DieselReqExt;
+		#[allow(unused_imports)]
+		use utils::LoggerReqExt;
 
 		$(
 			use $includes;

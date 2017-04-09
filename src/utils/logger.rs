@@ -4,13 +4,51 @@ use std;
 use slog_json::Json;
 use std::sync::Mutex;
 
-pub fn get_main_logger() -> Logger {
-	//let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
-	let json = Mutex::new(Json::default(std::io::stdout())).map(Fuse);
-	//let drain = slog_term::FullFormat::new(plain).build().fuse();
+use iron::{typemap, BeforeMiddleware};
+use iron::prelude::*;
 
-	Logger::root(
-		json,
-		o!("app" => "templic-backend")
-	)
+
+pub struct LoggerMiddleware {
+	pub logger: Logger
+}
+
+impl LoggerMiddleware {
+	pub fn new () -> LoggerMiddleware{	
+		//let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
+		let json = Mutex::new(Json::default(std::io::stdout())).map(Fuse);
+		//let drain = slog_term::FullFormat::new(plain).build().fuse();
+
+		LoggerMiddleware {logger: Logger::root(
+			json,
+			o!("app" => "templic-backend")
+		)}
+	}
+
+	pub fn get_logger(&self) -> Logger {
+	    self.logger.clone()
+	}
+}
+
+pub struct Value(Logger);
+
+impl typemap::Key for LoggerMiddleware { type Value = Value; }
+
+impl BeforeMiddleware for LoggerMiddleware {
+	fn before(&self, req: &mut Request) -> IronResult<()> {
+		let logger = self.logger.new(o!("route" => format!("{}", req.url)));
+		req.extensions.insert::<LoggerMiddleware>(Value(logger));
+		Ok(())
+	}
+}
+
+pub trait LoggerReqExt {
+	fn get_logger(&self) -> Logger;
+}
+
+impl <'a, 'b>LoggerReqExt for Request <'a, 'b> {
+	fn get_logger(&self) -> Logger {
+		let &Value(ref logger) = self.extensions.get::<LoggerMiddleware>().unwrap();
+
+		logger.clone()
+	}
 }
