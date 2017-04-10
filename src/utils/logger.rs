@@ -40,7 +40,7 @@ impl LoggerMiddleware {
 	}
 
 	pub fn get_logger(&self) -> Logger {
-	    self.logger.clone()
+		self.logger.clone()
 	}
 }
 
