@@ -14,6 +14,7 @@ macro_rules! import_controller_generic_requeriments {
 		$(
 			use $includes;
 		)*
+
 		#[allow(unused_imports)]
 		use std::error::Error;
 		#[allow(unused_imports)]
@@ -21,6 +22,14 @@ macro_rules! import_controller_generic_requeriments {
 		use controllers::utils::*;
 		#[allow(unused_imports)]
 		use utils::macros;
+
+
+		#[allow(unused_imports)]
+		use serde_json;
+		#[allow(unused_imports)]
+		use serde_json::Value::Object;
+		#[allow(unused_imports)]
+		use serde_json::Map;
 	}
 }
 
@@ -103,6 +112,22 @@ macro_rules! get_route_parameter {
 			let param = $req.extensions.get::<Router>().unwrap().find($param);
 
 			some_or_return!(param, $return_http)
+		}
+	}
+}
+
+macro_rules! filter_struct_values_for_json {
+	($item:expr, $($key:expr),*) => {
+		{
+			let mut structure = serde_json::to_value(&$item).expect("Not possible to serialize to JSON");
+
+			$(
+				if let Object(ref mut object) = structure {
+					object.remove($key);
+				}
+			)*
+
+			structure
 		}
 	}
 }

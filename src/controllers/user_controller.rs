@@ -1,8 +1,6 @@
-import_controller_generic_requeriments!(serde_json);
+import_controller_generic_requeriments!();
 
-use dal::user_model::User;
-use dal::user_model::NewUser;
-use dal::user_model::UpdateUser;
+use dal::UserModels::{User, NewUser, UpdateUser};
 use chrono::UTC;
 
 pub fn get_user(req: &mut Request) -> IronResult<Response>{
@@ -16,7 +14,7 @@ pub fn get_user(req: &mut Request) -> IronResult<Response>{
 		response_not_found("User not found")
 	);
 
-	response_ok(&user_data)
+	response_ok(&filter_struct_values_for_json!(&user_data, "password"))
 }
 
 pub fn create_user(req: &mut Request) -> IronResult<Response> {
@@ -65,4 +63,3 @@ pub fn update_user(req: &mut Request) -> IronResult<Response> {
 
 	response_ok(&user)
 }
-
