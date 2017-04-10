@@ -12,6 +12,7 @@ pub struct User {
 	pub id: i32,
 	name: String,
 	email: String,
+	#[serde(skip_serializing)]
 	password: String,
 	created_at: DateTime<UTC>,
 }

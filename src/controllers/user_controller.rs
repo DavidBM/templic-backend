@@ -14,7 +14,7 @@ pub fn get_user(req: &mut Request) -> IronResult<Response>{
 		response_not_found("User not found")
 	);
 
-	response_ok(&filter_struct_values_for_json!(&user_data, "password"))
+	response_ok(&user_data)
 }
 
 pub fn create_user(req: &mut Request) -> IronResult<Response> {
