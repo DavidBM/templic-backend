@@ -18,6 +18,7 @@ extern crate serde_json;
 extern crate slog;
 extern crate slog_term;
 extern crate slog_json;
+extern crate iron_cors;
 extern crate jsonwebtoken as jwt;
 extern crate rustc_serialize;
 

@@ -1,3 +1,6 @@
+use std::collections::HashSet;
+use std::env;
+
 use iron::prelude::*;
 use mount::Mount;
 use slog::Logger;
@@ -6,6 +9,7 @@ use http_adaptor::declare_endpoints;
 
 use middlewares::DieselMiddleware;
 use middlewares::LoggerMiddleware;
+use iron_cors::CorsMiddleware;
 
 
 pub struct HttpAdaptor {
@@ -39,6 +43,8 @@ impl HttpAdaptor {
 
 		chain.link_before(logger_middleware);
 		chain.link_before(db_pool_middleware);
+
+		//chain.link_around(self.create_cors_middleware());
 	}
 
 	pub fn start_http(&self, chain: Chain, host: &str, port: &str) {
@@ -49,5 +55,12 @@ impl HttpAdaptor {
 		}
 
 		Iron::new(chain).http(address).unwrap();
+	}
+	#[allow(dead_code)]
+	fn create_cors_middleware(&self) -> CorsMiddleware {
+		let domains = env::var("ALLOW_CORS_DOMAINS").expect("ALLOW_CORS_DOMAINS must be set");
+		let domains = domains.split(",").map(ToString::to_string).collect::<HashSet<String>>();
+
+		CorsMiddleware::with_whitelist(domains)
 	}
 }

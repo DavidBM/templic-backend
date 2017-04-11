@@ -17,8 +17,9 @@ serde_json = "^0.9"
 slog = "~2.0.0-3.1"
 slog-term = "~2.0.0-3.0"
 slog-json = "~2.0.0-3.0"
-jsonwebtoken = "1"
-rustc-serialize = "0.3"
+jsonwebtoken = "^1"
+rustc-serialize = "^0.3"
+iron-cors = "^0.5.1"
 
 [dependencies.iron]
 version = "*"
