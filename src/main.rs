@@ -21,6 +21,8 @@ extern crate slog_json;
 extern crate iron_cors;
 extern crate jsonwebtoken as jwt;
 extern crate rustc_serialize;
+extern crate argon2rs;
+extern crate base64;
 
 #[macro_use]
 mod utils;

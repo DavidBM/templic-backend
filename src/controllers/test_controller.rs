@@ -5,6 +5,6 @@ pub fn ping(_: &mut Request) -> IronResult<Response>{
 }
 
 pub fn read_login_user(req: &mut Request) -> IronResult<Response> {
-    println!("{:?}", req.get_user_data());
-    response_ok_text(format!("{:?}", req.get_user_data()))
+	println!("{:?}", req.get_user_data());
+	response_ok_text(format!("{:?}", req.get_user_data()))
 }

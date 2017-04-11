@@ -17,9 +17,11 @@ serde_json = "^0.9"
 slog = "~2.0.0-3.1"
 slog-term = "~2.0.0-3.0"
 slog-json = "~2.0.0-3.0"
-jsonwebtoken = "^1"
-rustc-serialize = "^0.3"
-iron-cors = "^0.5.1"
+jsonwebtoken = "^1" #Keep an eye for updates. They are developing a better API
+rustc-serialize = "^0.3" #Delete when jsonwebtoken is updated
+iron-cors = "^0.5.1" #Keep an eye for updates. They are developing a better API
+argon2rs = "^0.2.5" #Keep an eye for updates. They wil update default values for security
+base64 = "~0.4.0" #Keep an eye for updates.
 
 [dependencies.iron]
 version = "*"

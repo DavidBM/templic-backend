@@ -5,7 +5,25 @@ use diesel;
 use diesel::prelude::*;
 use slog::Logger;
 
+use http_adaptor::apis::Login;
 use dal::db_schema::users;
+
+
+#[derive(Debug, Insertable, Deserialize)]
+#[table_name="users"]
+pub struct NewUser {
+	name: String,
+	email: String,
+	pub password: String,
+	pub created_at: Option<DateTime<UTC>>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct UpdateUser {
+	name: Option<String>,
+	email: Option<String>,
+	password: Option<String>
+}
 
 #[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable, RustcEncodable, RustcDecodable)]
 pub struct User {
@@ -22,6 +40,25 @@ impl User {
 		let statement = users::table.filter(users::id.eq(user_id));
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_id" => user_id);
+
+		let user = statement.load::<User>(&**connection);
+
+		match user {
+			Ok(mut user) => user.pop(),
+			Err(_) => None,
+		}
+	}
+
+	pub fn find_login_user(login: Login, connection: &DieselConnection, logger: &Logger) -> Option<User> {
+		let statement = users::table.filter(
+			(
+				users::name.eq(&login.user_or_email)
+				.or(users::email.eq(&login.user_or_email))
+			)
+			.and(users::password.eq(&login.password))
+		);
+
+		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_or_email" => &login.user_or_email, "password" => &login.password);
 
 		let user = statement.load::<User>(&**connection);
 
@@ -83,21 +120,4 @@ impl User {
 			Err(error) => Err(error),
 		}
 	}
-}
-
-
-#[derive(Debug, Insertable, Deserialize)]
-#[table_name="users"]
-pub struct NewUser {
-	name: String,
-	email: String,
-	password: String,
-	pub created_at: Option<DateTime<UTC>>,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct UpdateUser {
-	name: Option<String>,
-	email: Option<String>,
-	password: Option<String>
 }

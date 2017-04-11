@@ -4,9 +4,11 @@ use iron::prelude::Chain;
 use slog::Logger;
 
 use controllers::test_controller;
+use controllers::login_controller;
 use controllers::user_controller;
 
 use middlewares::LoginMiddleware;
+use middlewares::GetSaltMiddleware;
 
 macro_rules! declare_multiple_endpoints {
 	($main_router:expr, $mount_route:expr, $( $name:expr => $method:ident ; $route:expr ; [$($middleware_before:expr),*] => $handler:expr => [$($middleware_after:expr),*]),*) => {
@@ -35,18 +37,20 @@ macro_rules! declare_multiple_endpoints {
 
 pub fn declare_endpoints(routes: &mut Mount, logger: &Logger) {
 	let loggin = LoginMiddleware::new(&logger);
+	let salt = GetSaltMiddleware::new(&logger);
 
 	declare_multiple_endpoints!(
 		routes, "/",
 		"ping" => get; "/ping"; [] => test_controller::ping => [],
-		"read_login_user" => get; "/read_login_user"; [loggin] => test_controller::read_login_user => []
+		"read_login_user" => get; "/read_login_user"; [loggin] => test_controller::read_login_user => [],
+		"login" => post; "/login"; [salt.clone()] => login_controller::login => [],
+		"register" => post; "/register"; [salt.clone()] => login_controller::register => []
 	);
 
 	declare_multiple_endpoints!(
 		routes, "/user/",
 		"get_user" => get; "/:id"; [] => user_controller::get_user => [],
 		"delete_user" => delete; "/:id"; [] => user_controller::delete_user => [],
-		"update_user" => put; "/:id"; [] => user_controller::update_user => [],
-		"create_user" => post; "/"; [] => user_controller::create_user => []
+		"update_user" => put; "/:id"; [] => user_controller::update_user => []
 	);
 }

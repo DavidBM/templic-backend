@@ -1,7 +1,6 @@
 import_controller_generic_requeriments!();
 
-use dal::UserModels::{User, NewUser, UpdateUser};
-use chrono::UTC;
+use dal::UserModels::{User, UpdateUser};
 
 pub fn get_user(req: &mut Request) -> IronResult<Response>{
 	let connection = req.get_db_conn();
@@ -15,22 +14,6 @@ pub fn get_user(req: &mut Request) -> IronResult<Response>{
 	);
 
 	response_ok(&user_data)
-}
-
-pub fn create_user(req: &mut Request) -> IronResult<Response> {
-	let connection = req.get_db_conn();
-	let logger = req.get_logger();
-
-	let mut user = get_body_as!(NewUser, req, response_bad_request);
-
-	user.created_at = Some(UTC::now());
-
-	let user_model = ok_or_return!(
-		User::create(&user, &connection, &logger), 
-		response_internal_server_error("Error saving the user into db")
-	);
-
-	response_ok(&json!({"id": user_model.id}))
 }
 
 pub fn delete_user(req: &mut Request) -> IronResult<Response> {

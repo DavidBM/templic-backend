@@ -104,6 +104,4 @@ If there isn't any errors, you finish! :)
 <a name="todo"></a>
 ## TODO
 
-- Argon2i for password hash (passes > 10)
-	+ salt in .env
-- Middleware for loading with JWT the user
+- Make salt to depend of he username/email
