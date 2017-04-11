@@ -3,8 +3,8 @@ use mount::Mount;
 
 use http_adaptor::declare_endpoints;
 
-use dal::DieselMiddleware;
-use utils::LoggerMiddleware;
+use middlewares::DieselMiddleware;
+use middlewares::LoggerMiddleware;
 
 
 pub struct HttpAdaptor;

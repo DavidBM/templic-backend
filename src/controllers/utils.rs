@@ -7,9 +7,9 @@ macro_rules! import_controller_generic_requeriments {
 		#[allow(unused_imports)]
 		use dal::*;
 		#[allow(unused_imports)]
-		use dal::DieselReqExt;
+		use middlewares::DieselReqExt;
 		#[allow(unused_imports)]
-		use utils::LoggerReqExt;
+		use middlewares::LoggerReqExt;
 
 		$(
 			use $includes;

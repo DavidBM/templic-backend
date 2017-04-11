@@ -1,6 +1,6 @@
 use chrono::DateTime;
 use chrono::UTC;
-use dal::*;
+use middlewares::DieselConnection;
 use diesel;
 use diesel::prelude::*;
 use slog::Logger;

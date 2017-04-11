@@ -24,6 +24,7 @@ mod utils;
 mod dal;
 mod controllers;
 mod http_adaptor;
+mod middlewares;
 
 use dotenv::dotenv;
 
