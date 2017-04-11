@@ -18,6 +18,8 @@ extern crate serde_json;
 extern crate slog;
 extern crate slog_term;
 extern crate slog_json;
+extern crate jsonwebtoken as jwt;
+extern crate rustc_serialize;
 
 #[macro_use]
 mod utils;
@@ -27,13 +29,15 @@ mod http_adaptor;
 mod middlewares;
 
 use dotenv::dotenv;
-
 use http_adaptor::HttpAdaptor;
+use utils::logger_factory;
 
 fn main() {
 	dotenv().ok();
 
-	let mut http_server = HttpAdaptor::new();
+	let logger = logger_factory();
+
+	let mut http_server = HttpAdaptor::new(&logger);
 
 	let routes = http_server.declare_endpoints();
 	let chain = http_server.create_chain(routes);

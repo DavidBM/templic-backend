@@ -10,13 +10,15 @@ diesel = { version = "^0.12.0", features = ["postgres", "chrono"] }
 diesel_codegen = { version = "^0.12.0", features = ["postgres"] }
 dotenv = "^0.8.0"
 router = "*"
-chrono = { version = "^0.3", features = ["serde"] }
+chrono = { version = "^0.3", features = ["serde", "rustc-serialize"] }
 serde = "^0.9"
 serde_derive = "^0.9"
 serde_json = "^0.9"
 slog = "~2.0.0-3.1"
 slog-term = "~2.0.0-3.0"
 slog-json = "~2.0.0-3.0"
+jsonwebtoken = "1"
+rustc-serialize = "0.3"
 
 [dependencies.iron]
 version = "*"

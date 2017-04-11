@@ -11,6 +11,7 @@
 - [Running migrations](#running-migrations)
 - [Adding new endpoints](#adding-new-endpoints)
 - [Recommended packages for working in Rust & sublime text editor](#recommended-packages-for-working-in-rust--sublime-text-editor)
+- [TODO](#todo)
 
 <!-- /MarkdownTOC -->
 
@@ -99,3 +100,10 @@ If there isn't any errors, you finish! :)
 	+ sublimeLinter-contrib-rustc
 - `cargo install cargo-expand`
 - `cargo install cargo-watch`
+
+<a name="todo"></a>
+## TODO
+
+- Argon2i for password hash (passes > 10)
+	+ salt in .env
+- Middleware for loading with JWT the user

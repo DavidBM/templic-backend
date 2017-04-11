@@ -7,7 +7,7 @@ use slog::Logger;
 
 use dal::db_schema::users;
 
-#[derive(Debug, Queryable, Serialize, AsChangeset, Identifiable)]
+#[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable, RustcEncodable, RustcDecodable)]
 pub struct User {
 	pub id: i32,
 	name: String,

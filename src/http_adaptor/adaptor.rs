@@ -1,5 +1,6 @@
 use iron::prelude::*;
 use mount::Mount;
+use slog::Logger;
 
 use http_adaptor::declare_endpoints;
 
@@ -7,17 +8,19 @@ use middlewares::DieselMiddleware;
 use middlewares::LoggerMiddleware;
 
 
-pub struct HttpAdaptor;
+pub struct HttpAdaptor {
+	logger: Logger
+}
 
 impl HttpAdaptor {
-	pub fn new() -> HttpAdaptor {
-		HttpAdaptor
+	pub fn new(logger: &Logger) -> HttpAdaptor {
+		HttpAdaptor {logger: logger.new(o!("module" => "HttpAdaptor"))}
 	}
 
 	pub fn declare_endpoints(&mut self) -> Mount{
 		let mut routes = Mount::new();
 
-		declare_endpoints(&mut routes);
+		declare_endpoints(&mut routes, &self.logger);
 
 		routes
 	}
@@ -31,8 +34,8 @@ impl HttpAdaptor {
 	}
 
 	fn add_default_middlewares(&self, chain: &mut Chain) {
-		let db_pool_middleware = DieselMiddleware::new();
-		let logger_middleware = LoggerMiddleware::new();
+		let db_pool_middleware = DieselMiddleware::new(&self.logger);
+		let logger_middleware = LoggerMiddleware::new(&self.logger);
 
 		chain.link_before(logger_middleware);
 		chain.link_before(db_pool_middleware);
@@ -42,8 +45,7 @@ impl HttpAdaptor {
 		let address = format!("{}:{}", host, port);
 		
 		{
-			let logger = LoggerMiddleware::new();
-			info!(logger.get_logger(), "Server Running"; o!("address" => address.clone()));
+			info!(self.logger, "Server Running"; o!("address" => address.clone()));
 		}
 
 		Iron::new(chain).http(address).unwrap();

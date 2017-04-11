@@ -10,6 +10,8 @@ macro_rules! import_controller_generic_requeriments {
 		use middlewares::DieselReqExt;
 		#[allow(unused_imports)]
 		use middlewares::LoggerReqExt;
+		#[allow(unused_imports)]
+		use middlewares::LoginReqExt;
 
 		$(
 			use $includes;
