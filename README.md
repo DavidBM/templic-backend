@@ -104,9 +104,16 @@ If there isn't any errors, you finish! :)
 <a name="todo"></a>
 ## TODO
 
-- Create /me
-- Create /me/posts
-- Create post /post
-- Create get /post/:id
-- Create delete /post/:id
-- Create put /post/:id
+- [ ] Create /me
+- [ ] Create /me/posts
+- [ ] Create post /post
+- [ ] Create get /post/:id
+- [ ] Create delete /post/:id
+- [ ] Create put /post/:id
+
+Blocked
+
+- [ ] Update `jsonwebtoken` and remove `rustc-serialize` (it breaks `cargo expand`)
+- [ ] Update to better security `argon2rs` (using at least 10 passes and all possible lanes)
+- [ ] Help in `iron-cors` and reactivate the crate in the code
+- [ ] `base64`. Maintain update.

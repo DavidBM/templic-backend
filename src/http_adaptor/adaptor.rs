@@ -44,7 +44,7 @@ impl HttpAdaptor {
 		chain.link_before(logger_middleware);
 		chain.link_before(db_pool_middleware);
 
-		//chain.link_around(self.create_cors_middleware());
+		chain.link_around(self.create_cors_middleware());
 	}
 
 	pub fn start_http(&self, chain: Chain, host: &str, port: &str) {

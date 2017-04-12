@@ -10,7 +10,7 @@ dependencies = [
  "diesel_codegen 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "dotenv 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "iron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "iron-cors 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "iron-cors 0.5.1 (git+https://github.com/dbrgn/iron-cors-rs?branch=no-400)",
  "jsonwebtoken 1.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "mount 0.3.0 (git+https://github.com/iron/mount.git)",
  "r2d2 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -225,7 +225,7 @@ dependencies = [
 [[package]]
 name = "iron-cors"
 version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
+source = "git+https://github.com/dbrgn/iron-cors-rs?branch=no-400#7d6fd1f3c5a442e60634c048b69a09fb4ce8ced4"
 dependencies = [
  "iron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -761,7 +761,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum hyper 0.10.7 (registry+https://github.com/rust-lang/crates.io-index)" = "eb15973f070a7de8bf3f61261726ef09647741110af6062d5ca1e21e6c4bd013"
 "checksum idna 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "6ac85ec3f80c8e4e99d9325521337e14ec7555c458a14e377d189659a427f375"
 "checksum iron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)" = "2440ae846e7a8c7f9b401db8f6e31b4ea5e7d3688b91761337da7e054520c75b"
-"checksum iron-cors 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)" = "f8a271fc9d686887269d23bb2b7dea4dd628fb640578d4d5d951368882208b88"
+"checksum iron-cors 0.5.1 (git+https://github.com/dbrgn/iron-cors-rs?branch=no-400)" = "<none>"
 "checksum isatty 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)" = "fa500db770a99afe2a0f2229be2a3d09c7ed9d7e4e8440bf71253141994e240f"
 "checksum itoa 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "eb2f404fbc66fd9aac13e998248505e7ecb2ad8e44ab6388684c5fb11c6c251c"
 "checksum jsonwebtoken 1.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "51ee39302136e211dfd33a0b06c0cdd7c625502335c9ebf9aab9a5ead09fd44e"
