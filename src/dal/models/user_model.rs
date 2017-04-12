@@ -28,11 +28,11 @@ pub struct UpdateUser {
 #[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable, RustcEncodable, RustcDecodable)]
 pub struct User {
 	pub id: i32,
-	name: String,
-	email: String,
+	pub name: String,
+	pub email: String,
 	#[serde(skip_serializing)]
-	password: String,
-	created_at: DateTime<UTC>,
+	pub password: String,
+	pub created_at: DateTime<UTC>,
 }
 
 impl User {
@@ -49,13 +49,10 @@ impl User {
 		}
 	}
 
-	pub fn find_login_user(login: Login, connection: &DieselConnection, logger: &Logger) -> Option<User> {
+	pub fn get_user_by_email_or_name(login: &Login, connection: &DieselConnection, logger: &Logger) -> Option<User> {
 		let statement = users::table.filter(
-			(
-				users::name.eq(&login.user_or_email)
-				.or(users::email.eq(&login.user_or_email))
-			)
-			.and(users::password.eq(&login.password))
+			users::name.eq(&login.user_or_email)
+			.or(users::email.eq(&login.user_or_email))
 		);
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_or_email" => &login.user_or_email, "password" => &login.password);

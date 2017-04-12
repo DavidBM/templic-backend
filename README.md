@@ -104,4 +104,9 @@ If there isn't any errors, you finish! :)
 <a name="todo"></a>
 ## TODO
 
-- Make salt to depend of he username/email
+- Create /me
+- Create /me/posts
+- Create post /post
+- Create get /post/:id
+- Create delete /post/:id
+- Create put /post/:id
