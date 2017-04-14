@@ -1,1 +1,1 @@
-ALTER TABLE users DROP CONSTRAINT "users_email_key"
+DROP INDEX users_email_key
