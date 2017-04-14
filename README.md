@@ -110,6 +110,11 @@ If there isn't any errors, you finish! :)
 - [ ] Create get /post/:id
 - [ ] Create delete /post/:id
 - [ ] Create put /post/:id
+- [ ] Create post model
+- [ ] Create author model
+- [ ] Connect author and post in model
+- [ ] Connect user and author in model
+- [ ] Add user_id, author_id and post_is instead of using the postgre ids
 
 Blocked
 
