@@ -50,7 +50,7 @@ pub fn register(req: &mut Request) -> IronResult<Response> {
 		response_internal_server_error("Error saving the user into db")
 	);
 
-	response_ok(&json!({"user_id": user_model.user_id}))
+	response_ok(&json!({"user_id": user_model.id}))
 }
 
 fn hash_password(req: &mut Request, created_at: &DateTime<UTC>, login_password: &String) -> String {
@@ -66,7 +66,7 @@ fn create_token(user_data: &User) -> String {
 
 	let mut header = Header::default();
 	header.alg = Algorithm::HS512;
-	encode_jwt(header, &Token {user_id: user_data.user_id}, secret.as_ref()).unwrap()
+	encode_jwt(header, &Token {user_id: user_data.id}, secret.as_ref()).unwrap()
 }
 
 fn create_user_salt(static_salt: &String, created_at: &DateTime<UTC>) -> String {

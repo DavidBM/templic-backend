@@ -105,9 +105,10 @@ If there isn't any errors, you finish! :)
 ## TODO
 
 - [x] Create user/me
-- [ ] Create user/me/posts
+- [x] Create author model
+- [ ] Create post user/me/ (for update to author)
 - [ ] Create post model
-- [ ] Create author model
+- [ ] Create user/me/posts
 - [ ] Create post /post
 - [ ] Create get /post/:id
 - [ ] Create delete /post/:id
@@ -116,6 +117,9 @@ If there isn't any errors, you finish! :)
 - [ ] Connect user and author in model
 - [x] Add user_id, author_id and post_is instead of using the postgre ids
 - [x] The token should contain only the user id
+- [ ] Tokens MUST change every login
+- [ ] Add caducity to tokens
+- [ ] Add token_version to user table for cancelling tokens for users
 
 Blocked
 

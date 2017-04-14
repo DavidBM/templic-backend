@@ -51,7 +51,7 @@ impl BeforeMiddleware for LoginMiddleware {
 						Err(IronError::new(MiddlewareErrorTypes::AuthorizationError, status::Unauthorized))
 					);
 
-					info!(self.logger, "Request authorized"; "user_id" => user.user_id);
+					info!(self.logger, "Request authorized"; "user_id" => user.id);
 					
 					req.extensions.insert::<LoginMiddleware>(Value(user));
 

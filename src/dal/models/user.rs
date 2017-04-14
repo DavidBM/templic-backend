@@ -8,7 +8,6 @@ use slog::Logger;
 use http_adaptor::apis::Login;
 use dal::db_schema::users;
 
-
 #[derive(Debug, Insertable, Deserialize)]
 #[table_name="users"]
 pub struct NewUser {
@@ -27,19 +26,17 @@ pub struct UpdateUser {
 
 #[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable)]
 pub struct User {
-	#[serde(skip_serializing)]
 	pub id: i32,
 	pub name: String,
 	pub email: String,
 	#[serde(skip_serializing)]
 	pub password: String,
-	pub created_at: DateTime<UTC>,
-	pub user_id: i32,
+	pub created_at: DateTime<UTC>
 }
 
 impl User {
 	pub fn get_by_id(user_id: i32, connection: &DieselConnection, logger: &Logger) -> Option<User> {
-		let statement = users::table.filter(users::user_id.eq(user_id));
+		let statement = users::table.filter(users::id.eq(user_id));
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_id" => user_id);
 
@@ -111,7 +108,7 @@ impl User {
 	}
 
 	pub fn delete(user_id: i32, connection: &DieselConnection, logger: &Logger) -> Result<u32, diesel::result::Error> {
-		let statement = diesel::delete(users::table.filter(users::user_id.eq(user_id)));
+		let statement = diesel::delete(users::table.filter(users::id.eq(user_id)));
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_id" => user_id);
 
