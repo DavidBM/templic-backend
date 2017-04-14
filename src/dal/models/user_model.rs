@@ -33,11 +33,12 @@ pub struct User {
 	#[serde(skip_serializing)]
 	pub password: String,
 	pub created_at: DateTime<UTC>,
+	pub user_id: i32,
 }
 
 impl User {
 	pub fn get_by_id(user_id: i32, connection: &DieselConnection, logger: &Logger) -> Option<User> {
-		let statement = users::table.filter(users::id.eq(user_id));
+		let statement = users::table.filter(users::user_id.eq(user_id));
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_id" => user_id);
 
@@ -106,7 +107,7 @@ impl User {
 	}
 
 	pub fn delete(user_id: i32, connection: &DieselConnection, logger: &Logger) -> Result<u32, diesel::result::Error> {
-		let statement = diesel::delete(users::table.filter(users::id.eq(user_id)));
+		let statement = diesel::delete(users::table.filter(users::user_id.eq(user_id)));
 
 		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_id" => user_id);
 
