@@ -1,8 +1,8 @@
 pub mod utils;
 pub mod logger;
-pub mod login;
 pub mod diesel_pool;
 pub mod get_salt;
+pub mod login;
 
 pub use self::logger::LoggerMiddleware;
 pub use self::logger::LoggerReqExt;

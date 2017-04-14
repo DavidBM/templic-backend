@@ -25,7 +25,7 @@ pub struct UpdateUser {
 	password: Option<String>
 }
 
-#[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable, RustcEncodable, RustcDecodable)]
+#[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable)]
 pub struct User {
 	pub id: i32,
 	pub name: String,

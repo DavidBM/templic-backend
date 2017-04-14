@@ -11,6 +11,8 @@ use dal::UserModels::{User, NewUser};
 use http_adaptor::apis::Login;
 use middlewares::get_salt::GetSaltReqExt;
 
+use middlewares::login::Token;
+
 pub fn login(req: &mut Request) -> IronResult<Response>{
 	let login_data = get_body_as!(Login, req, response_bad_request);
 	let connection = req.get_db_conn();
@@ -62,7 +64,7 @@ fn create_token(user_data: &User) -> String {
 
 	let mut header = Header::default();
 	header.alg = Algorithm::HS512;
-	encode_jwt(header, user_data, secret.as_ref()).unwrap()
+	encode_jwt(header, &Token {user_id: user_data.id}, secret.as_ref()).unwrap()
 }
 
 fn create_user_salt(static_salt: &String, user: &User) -> String {

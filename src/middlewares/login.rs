@@ -10,7 +10,13 @@ use dal::UserModels::User;
 use slog::Logger;
 
 use middlewares::MiddlewareErrorTypes;
+use middlewares::diesel_pool::DieselReqExt;
 
+
+#[derive(Debug, RustcEncodable, RustcDecodable)]
+pub struct Token {
+    pub user_id: i32
+}
 
 pub struct LoginMiddleware {
 	logger: Logger
@@ -35,10 +41,19 @@ impl BeforeMiddleware for LoginMiddleware {
 		let token = req.headers.get::<Authorization<Bearer>>();
 
 		if let Some(&Authorization(ref bearer)) = token {
-			match decode::<User>(&bearer.token, secret.as_ref(), Algorithm::HS512) {
+			match decode::<Token>(&bearer.token, secret.as_ref(), Algorithm::HS512) {
 				Ok(user) => {
-					info!(self.logger, "Loggin succeed"; "user_id" => user.claims.id);
-					req.extensions.insert::<LoginMiddleware>(Value(user.claims));
+					let connection = req.get_db_conn();
+
+					let user = some_or_return!(
+						User::get_by_id(user.claims.user_id, &connection, &self.logger),
+						Err(IronError::new(MiddlewareErrorTypes::AuthorizationError, status::Unauthorized))
+					);
+
+					info!(self.logger, "Loggin succeed"; "user_id" => user.id);
+					
+					req.extensions.insert::<LoginMiddleware>(Value(user));
+
 					Ok(())
 				},
 				Err(error) => {

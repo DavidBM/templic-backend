@@ -9,8 +9,7 @@ pub enum MiddlewareErrorTypes {
 impl fmt::Display for MiddlewareErrorTypes {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		match *self {
-			MiddlewareErrorTypes::AuthorizationError => 
-			write!(f, "Authorization failed"),
+			MiddlewareErrorTypes::AuthorizationError => write!(f, "Authorization failed"),
 		}
 	}
 }

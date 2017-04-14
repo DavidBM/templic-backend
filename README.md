@@ -104,17 +104,18 @@ If there isn't any errors, you finish! :)
 <a name="todo"></a>
 ## TODO
 
-- [ ] Create /me
-- [ ] Create /me/posts
+- [ ] Create user/me
+- [ ] Create user/me/posts
+- [ ] Create post model
+- [ ] Create author model
 - [ ] Create post /post
 - [ ] Create get /post/:id
 - [ ] Create delete /post/:id
 - [ ] Create put /post/:id
-- [ ] Create post model
-- [ ] Create author model
 - [ ] Connect author and post in model
 - [ ] Connect user and author in model
 - [ ] Add user_id, author_id and post_is instead of using the postgre ids
+- [x] The token should contain only the user id
 
 Blocked
 
