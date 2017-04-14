@@ -104,7 +104,7 @@ If there isn't any errors, you finish! :)
 <a name="todo"></a>
 ## TODO
 
-- [ ] Create user/me
+- [x] Create user/me
 - [ ] Create user/me/posts
 - [ ] Create post model
 - [ ] Create author model

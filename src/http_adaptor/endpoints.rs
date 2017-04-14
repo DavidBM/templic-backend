@@ -42,13 +42,14 @@ pub fn declare_endpoints(routes: &mut Mount, logger: &Logger) {
 	declare_multiple_endpoints!(
 		routes, "/",
 		"ping" => get; "/ping"; [] => test_controller::ping => [],
-		"read_login_user" => get; "/read_login_user"; [loggin] => test_controller::read_login_user => [],
+		"read_login_user" => get; "/read_login_user"; [loggin.clone()] => test_controller::read_login_user => [],
 		"login" => post; "/login"; [salt.clone()] => login_controller::login => [],
 		"register" => post; "/register"; [salt.clone()] => login_controller::register => []
 	);
 
 	declare_multiple_endpoints!(
 		routes, "/user/",
+		"get_me" => get; "/me"; [loggin.clone()] => user_controller::get_me => [],
 		"get_user" => get; "/:id"; [] => user_controller::get_user => [],
 		"delete_user" => delete; "/:id"; [] => user_controller::delete_user => [],
 		"update_user" => put; "/:id"; [] => user_controller::update_user => []

@@ -15,9 +15,10 @@ use middlewares::diesel_pool::DieselReqExt;
 
 #[derive(Debug, RustcEncodable, RustcDecodable)]
 pub struct Token {
-    pub user_id: i32
+	pub user_id: i32
 }
 
+#[derive(Clone)]
 pub struct LoginMiddleware {
 	logger: Logger
 }
@@ -50,20 +51,20 @@ impl BeforeMiddleware for LoginMiddleware {
 						Err(IronError::new(MiddlewareErrorTypes::AuthorizationError, status::Unauthorized))
 					);
 
-					info!(self.logger, "Loggin succeed"; "user_id" => user.user_id);
+					info!(self.logger, "Request authorized"; "user_id" => user.user_id);
 					
 					req.extensions.insert::<LoginMiddleware>(Value(user));
 
 					Ok(())
 				},
 				Err(error) => {
-					info!(self.logger, "Loggin failed"; "reason" => "JWT error", "details" => format!("{:?}", error));
+					info!(self.logger, "Request unauthorized"; "reason" => "JWT error", "details" => format!("{:?}", error));
 					Err(IronError::new(error, status::Unauthorized))
 				}
 			}
 		}
 		else {
-			info!(self.logger, "Loggin failed"; "reason" => "no bearer token found", "details" => format!("{:?}", token));
+			info!(self.logger, "Request unauthorized"; "reason" => "no bearer token found", "details" => format!("{:?}", token));
 			Err(IronError::new(MiddlewareErrorTypes::AuthorizationError, status::Unauthorized))
 		}
 	}

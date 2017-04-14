@@ -27,6 +27,7 @@ pub struct UpdateUser {
 
 #[derive(Clone, Debug, Queryable, Serialize, AsChangeset, Identifiable)]
 pub struct User {
+	#[serde(skip_serializing)]
 	pub id: i32,
 	pub name: String,
 	pub email: String,
@@ -56,7 +57,7 @@ impl User {
 			.or(users::email.eq(&login.user_or_email))
 		);
 
-		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_or_email" => &login.user_or_email, "password" => &login.password);
+		info!(logger, "Executing Query"; "query" => debug_sql!(statement), "user_or_email" => &login.user_or_email);
 
 		let user = statement.load::<User>(&**connection);
 
@@ -76,7 +77,10 @@ impl User {
 
 		match new_user {
 			Ok(new_user) => Ok(new_user),
-			Err(error) => Err(error),
+			Err(error) => {
+				warn!(logger, "Error creating user"; o!("error" => format!("{:?}", error)));
+				Err(error)
+			},
 		}
 	}
 

@@ -16,6 +16,10 @@ pub fn get_user(req: &mut Request) -> IronResult<Response>{
 	response_ok(&user_data)
 }
 
+pub fn get_me(req: &mut Request) -> IronResult<Response> {
+	response_ok(&req.get_user_data())
+}
+
 pub fn delete_user(req: &mut Request) -> IronResult<Response> {
 	let connection = req.get_db_conn();
 	let logger = req.get_logger();
