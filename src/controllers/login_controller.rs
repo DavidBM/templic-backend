@@ -8,7 +8,7 @@ use argon2rs::argon2i_simple;
 use base64::encode;
 use jwt::{encode as encode_jwt, Algorithm, Header};
 
-use dal::UserModels::{User, NewUser};
+use dal::models::user::{User, NewUser};
 use http_adaptor::apis::Login;
 use middlewares::get_salt::GetSaltReqExt;
 

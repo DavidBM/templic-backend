@@ -6,7 +6,7 @@ use iron::headers::{Authorization, Bearer};
 use iron::prelude::*;
 
 use jwt::{decode, Algorithm};
-use dal::UserModels::User;
+use dal::models::user::User;
 use slog::Logger;
 
 use middlewares::MiddlewareErrorTypes;

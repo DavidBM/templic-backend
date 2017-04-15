@@ -105,9 +105,9 @@ If there isn't any errors, you finish! :)
 ## TODO
 
 - [x] Create user/me
-- [ ] Create post model (with jsonb support)
-- [ ] Create user/me/posts
+- [x] Create post model (without jsonb support)
 - [ ] Create post /post
+- [ ] Create user/me/posts
 - [ ] Create get /post/:id
 - [ ] Create delete /post/:id
 - [ ] Create put /post/:id

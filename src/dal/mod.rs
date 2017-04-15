@@ -1,4 +1,4 @@
 pub mod db_schema;
 pub mod models;
 
-pub use self::models::user as UserModels;
+pub use self::models::user;

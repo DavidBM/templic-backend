@@ -1,6 +1,6 @@
 import_controller_generic_requeriments!();
 
-use dal::UserModels::{User, UpdateUser};
+use dal::models::user::{User, UpdateUser};
 
 pub fn get_user(req: &mut Request) -> IronResult<Response>{
 	let connection = req.get_db_conn();
