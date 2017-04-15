@@ -6,7 +6,7 @@ use diesel::prelude::*;
 use slog::Logger;
 
 use http_adaptor::apis::Login;
-use dal::db_schema::users;
+use dal::db_schema::*;
 
 #[derive(Debug, Insertable, Deserialize)]
 #[table_name="users"]

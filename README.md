@@ -105,9 +105,7 @@ If there isn't any errors, you finish! :)
 ## TODO
 
 - [x] Create user/me
-- [x] Create author model
-- [ ] Create post user/me/ (for update to author)
-- [ ] Create post model
+- [ ] Create post model (with jsonb support)
 - [ ] Create user/me/posts
 - [ ] Create post /post
 - [ ] Create get /post/:id
