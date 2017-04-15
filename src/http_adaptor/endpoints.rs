@@ -3,9 +3,10 @@ use mount::Mount;
 use iron::prelude::Chain;
 use slog::Logger;
 
-use controllers::test_controller;
-use controllers::login_controller;
-use controllers::user_controller;
+use controllers::test as TestController;
+use controllers::login as LoginController;
+use controllers::user as UserController;
+use controllers::post as PostController;
 
 use middlewares::LoginMiddleware;
 use middlewares::GetSaltMiddleware;
@@ -41,17 +42,23 @@ pub fn declare_endpoints(routes: &mut Mount, logger: &Logger) {
 
 	declare_multiple_endpoints!(
 		routes, "/",
-		"ping" => get; "/ping"; [] => test_controller::ping => [],
-		"read_login_user" => get; "/read_login_user"; [loggin.clone()] => test_controller::read_login_user => [],
-		"login" => post; "/login"; [salt.clone()] => login_controller::login => [],
-		"register" => post; "/register"; [salt.clone()] => login_controller::register => []
+		"ping" => get; "/ping"; [] => TestController::ping => [],
+		"read_login_user" => get; "/read_login_user"; [loggin.clone()] => TestController::read_login_user => [],
+		"login" => post; "/login"; [salt.clone()] => LoginController::login => [],
+		"register" => post; "/register"; [salt.clone()] => LoginController::register => []
 	);
 
 	declare_multiple_endpoints!(
 		routes, "/user/",
-		"get_me" => get; "/me"; [loggin.clone()] => user_controller::get_me => [],
-		"get_user" => get; "/:id"; [] => user_controller::get_user => [],
-		"delete_user" => delete; "/:id"; [] => user_controller::delete_user => [],
-		"update_user" => put; "/:id"; [] => user_controller::update_user => []
+		"get_me" => get; "/me"; [loggin.clone()] => UserController::get_me => [],
+		"get_user_posts" => get; "/me/post"; [loggin.clone()] => UserController::get_user_posts => [],
+		"get_user" => get; "/:id"; [] => UserController::get => [],
+		"delete_user" => delete; "/:id"; [] => UserController::delete => [],
+		"update_user" => put; "/:id"; [] => UserController::update => []
+	);
+
+	declare_multiple_endpoints!(
+		routes, "/post/",
+		"create_post" => post; "/"; [loggin.clone()] => PostController::create => []
 	);
 }

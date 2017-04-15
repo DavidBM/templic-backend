@@ -1,8 +1,9 @@
 import_controller_generic_requeriments!();
 
 use dal::models::user::{User, UpdateUser};
+use dal::models::post::{Post};
 
-pub fn get_user(req: &mut Request) -> IronResult<Response>{
+pub fn get(req: &mut Request) -> IronResult<Response>{
 	let connection = req.get_db_conn();
 	let logger = req.get_logger();
 
@@ -20,7 +21,7 @@ pub fn get_me(req: &mut Request) -> IronResult<Response> {
 	response_ok(&req.get_user_data())
 }
 
-pub fn delete_user(req: &mut Request) -> IronResult<Response> {
+pub fn delete(req: &mut Request) -> IronResult<Response> {
 	let connection = req.get_db_conn();
 	let logger = req.get_logger();
 
@@ -36,7 +37,7 @@ pub fn delete_user(req: &mut Request) -> IronResult<Response> {
 	response_ok(&json!({"quantity": quatity_deleted}))
 }
 
-pub fn update_user(req: &mut Request) -> IronResult<Response> {
+pub fn update(req: &mut Request) -> IronResult<Response> {
 	let connection = req.get_db_conn();
 	let logger = req.get_logger();
 
@@ -49,4 +50,15 @@ pub fn update_user(req: &mut Request) -> IronResult<Response> {
 	);
 
 	response_ok(&user)
+}
+
+pub fn get_user_posts(req: &mut Request) -> IronResult<Response> {
+	let connection = req.get_db_conn();
+	let logger = req.get_logger();
+
+	let user_id = req.get_user_data().id;
+
+	let posts = Post::get_post_from_user(user_id, &connection, &logger);
+
+	response_ok(&posts)
 }

@@ -106,18 +106,21 @@ If there isn't any errors, you finish! :)
 
 - [x] Create user/me
 - [x] Create post model (without jsonb support)
-- [ ] Create post /post
-- [ ] Create user/me/posts
+- [x] Create post /post
+- [x] Create user/me/posts
 - [ ] Create get /post/:id
 - [ ] Create delete /post/:id
 - [ ] Create put /post/:id
 - [ ] Connect author and post in model
 - [ ] Connect user and author in model
-- [x] Add user_id, author_id and post_is instead of using the postgre ids
 - [x] The token should contain only the user id
 - [ ] Tokens MUST change every login
 - [ ] Add caducity to tokens
 - [ ] Add token_version to user table for cancelling tokens for users
+- [ ] Improve return macros for showing the internal error (like `response_bad_request`)
+- [ ] Add permissions for delete & update user (only the same user can do it)
+- [ ] Delete user must delete all the posts
+- [ ] Logs in queries should identify the query action
 
 Blocked
 
@@ -125,3 +128,4 @@ Blocked
 - [ ] Update to better security `argon2rs` (using at least 10 passes and all possible lanes)
 - [ ] Help in `iron-cors` and reactivate the crate in the code
 - [ ] `base64`. Maintain update.
+- [ ] Debug the SQL of the update methods
